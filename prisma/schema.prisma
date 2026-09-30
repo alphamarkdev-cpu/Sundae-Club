@@ -1,0 +1,18 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Order {
+  id        String   @id
+  createdAt DateTime @default(now())
+  status    String   @default("PLACED")
+  payment   String   @default("COD")
+  total     Int
+  customer  Json
+  items     Json
+}
