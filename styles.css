@@ -110,19 +110,60 @@
 .mood-heading h2 span{margin-left:11px;color:var(--pink);font-size:.55em;vertical-align:top}
 .mood-heading>p:last-child{margin:7px 0 0;color:#6f5448;font-size:calc(15px * var(--banner-scale))}
 .mood-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;max-width:1580px;margin-inline:auto}
-.mood-card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(180px,.82fr);align-items:stretch;gap:clamp(8px,1.3vw,21px);min-width:0;overflow:hidden;padding:clamp(17px,2.2vw,34px);border-radius:28px;box-shadow:0 15px 35px rgba(94,46,23,.1)}
-.mango-mood{background:linear-gradient(135deg,#ffdf68,#ffbf2f 55%,#ffa90b);color:#6a2411}
-.chocolate-mood{background:radial-gradient(ellipse at 85% 20%,#81502f,#4a2418 65%,#35170f);color:#fff0d8}
+.mood-card{display:grid;grid-template-columns: minmax(0,1fr) minmax(180px,.95fr);align-items:stretch;gap:clamp(8px,1.3vw,21px);min-width:0;overflow:hidden;padding:clamp(17px,2.2vw,34px);border-radius:28px;box-shadow:0 15px 35px rgba(94,46,23,.1)}
+/* LEFT CARD — Papaya & Pomegranate Seeds */
+/* LEFT CARD — Papaya & Pomegranate Seeds */
+.mango-mood {
+  background-color: #FFAD43;
+
+  background-image:
+    radial-gradient(
+      circle at 75% 15%,
+      rgba(255, 250, 224, 0.38),
+      transparent 34%
+    ),
+    linear-gradient(
+      125deg,
+      #FFE0A3 0%,
+      #FFB443 45%,
+      #FF8A1D 75%,
+      #F56A0A 100%
+    );
+
+  color: #6A2411;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+
+/* RIGHT CARD — Peach & Cherry Blossoms */
+.chocolate-mood {
+  background-color: #FFC5CB;
+  background-image:
+    radial-gradient(
+      circle at 75% 15%,
+      rgba(255, 255, 255, 0.48),
+      transparent 34%
+    ),
+    linear-gradient(
+      125deg,
+      #FFE8E1 0%,
+      #FFC5CB 55%,
+      #F47D91 100%
+    );
+
+  color: #64212A;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
 .mood-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:3px 0}
 .mood-overline{margin:0 0 8px;font-size:9px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;opacity:.78}
 .mood-card h3{margin:0;font-family:Nunito,'DM Sans',sans-serif;font-size:calc(35px * var(--banner-scale));font-weight:1000;line-height:.9;letter-spacing:-.06em;text-transform:uppercase}
-.mood-tagline{margin:10px 0 12px;font-size:calc(12px * var(--banner-scale));font-weight:1000;letter-spacing:.06em;text-transform:uppercase}
-.mood-card ul{display:grid;gap:8px;margin:0 0 14px;padding:0;list-style:none;font-size:calc(11px * var(--banner-scale));line-height:1.35}
+.mood-tagline{margin:10px 0 12px;font-size:calc(18px * var(--banner-scale));font-weight:1000;letter-spacing:.06em;text-transform:uppercase}
+.mood-card ul{display:grid;gap:8px;margin:0 0 14px;padding:0;list-style:none;font-size:calc(14px * var(--banner-scale));line-height:1.35}
 .mood-card li{position:relative;padding-left:19px}.mood-card li:before{content:'✦';position:absolute;left:0;top:0;color:var(--pink);font-size:12px}.chocolate-mood li:before{color:#ff91ad}
-.mood-buy-row{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:auto;padding-top:8px;width:100%}
+.mood-buy-row{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:auto;padding-top:8px;width:60%}
 .mood-buy-row>strong{font-family:Nunito,sans-serif;font-size:calc(22px * var(--banner-scale));line-height:1;font-weight:1000}.mood-buy-row>strong small{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.mood-buy-row>a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:39px;width:100%;padding:9px 13px;border:2px solid rgba(255,255,255,.75);border-radius:999px;background:#f33e12;color:white;text-decoration:none;text-transform:uppercase;text-align:center;font-size:calc(9px * var(--banner-scale));font-weight:1000;box-shadow:0 5px 12px rgba(78,32,12,.13)}
-.chocolate-mood .mood-buy-row>a{background:#35170f;border-color:#a87556;color:#fff4e8}
+.mood-buy-row>a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:39px;width:100%;padding:13px 13px;border:2px solid rgba(255,255,255,.75);border-radius:999px;background:#f33e12;color:white;text-decoration:none;text-transform:uppercase;text-align:center;font-size:calc(12px * var(--banner-scale));font-weight:1000;box-shadow:0 5px 12px rgba(78,32,12,.13)}
+.chocolate-mood .mood-buy-row>a{background:#FF326B;border-color:#a87556;color:#fff4e8}
 .mood-buy-row>a span{font-size:18px;line-height:1}
 .mood-product-visual{display:block;align-self:stretch;min-width:0;overflow:hidden;border-radius:20px;background:rgba(255,255,255,.15);box-shadow:0 8px 22px rgba(67,30,15,.12)}
 .mood-product-visual img{display:block;width:100%;height:100%;min-height:calc(300px * var(--banner-scale));object-fit:cover;object-position:center;transition:transform .35s}
