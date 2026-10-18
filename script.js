@@ -74,10 +74,6 @@ function shipping() {
 function total() {
   return discountedSubtotal() + shipping();
 }
-  function getPrice(product) { return product.price || PRICE; }
-  function shipping() { return subtotal() === 0 || subtotal() >= FREE_SHIPPING_AT ? 0 : SHIPPING_FEE; }
-  function total() { return subtotal() + shipping(); }
-
   function updateCartCount() { $$('.cart-count').forEach(el => { el.textContent = lineCount(); }); }
   function saveCart() { storageSet(STORAGE_KEYS.cart, cart); updateCartCount(); }
   function toast(message) {
@@ -102,7 +98,7 @@ function total() {
     $('#empty-cart').hidden = items.length > 0;
     $('#cart-summary').hidden = items.length === 0;
     $('#shipping-message').hidden = items.length === 0;
-    $('#shipping-message').textContent = subtotal() >= FREE_SHIPPING_AT ? 'Yay! Your order gets free shipping ✦' : `Add ${formatINR(FREE_SHIPPING_AT - subtotal())} more for free shipping.`;
+    $('#shipping-message').textContent = discountedSubtotal() >= FREE_SHIPPING_AT ? 'Yay! Your order gets free shipping ✦' : `Add ${formatINR(FREE_SHIPPING_AT - discountedSubtotal())} more for free shipping.`;
     itemsEl.innerHTML = items.map(({product,qty}) => `
       <div class="cart-line">
         <a href="?product=${product.id}" aria-label="View ${product.name}"><img src="${product.image}" alt="${product.name}" loading="lazy"></a>
@@ -110,7 +106,13 @@ function total() {
         <div class="cart-line-price">${formatINR(getPrice(product)*qty)}</div>
       </div>`).join('');
     $('#cart-subtotal').textContent = formatINR(subtotal());
-    $('#cart-shipping').textContent = shipping() === 0 ? (subtotal() >= FREE_SHIPPING_AT ? 'FREE' : '—') : formatINR(shipping());
+    $('#cart-discount').textContent = duoDiscount()
+      ? `−${formatINR(duoDiscount())}`
+      : '—';
+    $('#cart-shipping').textContent =
+      shipping() === 0
+        ? (discountedSubtotal() >= FREE_SHIPPING_AT ? 'FREE' : '—')
+        : formatINR(shipping());
     $('#cart-total').textContent = formatINR(total());
     updateCartCount();
   }
@@ -187,7 +189,13 @@ function total() {
     const list = $('#checkout-items'); if (!list) return;
     list.innerHTML = cartItems().map(({product,qty})=>`<div class="checkout-item"><img src="${product.image}" alt="" loading="lazy"><div><strong>${product.name}</strong><small>Qty ${qty} · ${formatINR(getPrice(product))} each</small></div><span>${formatINR(getPrice(product)*qty)}</span></div>`).join('');
     $('#checkout-subtotal').textContent = formatINR(subtotal());
-    $('#checkout-shipping').textContent = shipping() === 0 ? (subtotal() >= FREE_SHIPPING_AT ? 'FREE' : '—') : formatINR(shipping());
+    $('#checkout-discount').textContent = duoDiscount()
+      ? `−${formatINR(duoDiscount())}`
+      : '—';
+    $('#checkout-shipping').textContent =
+      shipping() === 0
+        ? (discountedSubtotal() >= FREE_SHIPPING_AT ? 'FREE' : '—')
+        : formatINR(shipping());
     $('#checkout-total').textContent = formatINR(total());
     $('#checkout-error').hidden = true;
     $('#checkout-mode-note').textContent = STORE_WHATSAPP ? 'COD checkout. After placing the order, you can send the order summary to the store on WhatsApp.' : 'COD checkout is interactive. In this no-server demo, orders are saved in this browser only; set STORE_WHATSAPP in script.js or connect an order backend to notify the store.';
