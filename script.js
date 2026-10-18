@@ -35,7 +35,45 @@
 
   function lineCount() { return Object.values(cart).reduce((sum, qty) => sum + Math.max(0, Number(qty) || 0), 0); }
   function cartItems() { return Object.entries(cart).map(([id, qty]) => ({ product:byId(id), qty:Number(qty)||0 })).filter(item => item.product && item.qty > 0); }
-  function subtotal() { return cartItems().reduce((sum, item) => sum + getPrice(item.product) * item.qty, 0); }
+function subtotal() {
+  return cartItems().reduce(
+    (sum, item) => sum + getPrice(item.product) * item.qty,
+    0
+  );
+}
+
+function getPrice(product) {
+  return product.price || PRICE;
+}
+
+// Count all body scrubs in the cart.
+function scrubCount() {
+  return cartItems()
+    .filter(item => item.product.category === 'scrub')
+    .reduce((sum, item) => sum + item.qty, 0);
+}
+
+// Give ₹299 off for every eligible pair of body scrubs.
+function duoDiscount() {
+  return Math.floor(scrubCount() / 2) * 299;
+}
+
+// Subtotal after applying the offer.
+function discountedSubtotal() {
+  return Math.max(0, subtotal() - duoDiscount());
+}
+
+function shipping() {
+  const amount = discountedSubtotal();
+
+  return amount === 0 || amount >= FREE_SHIPPING_AT
+    ? 0
+    : SHIPPING_FEE;
+}
+
+function total() {
+  return discountedSubtotal() + shipping();
+}
   function getPrice(product) { return product.price || PRICE; }
   function shipping() { return subtotal() === 0 || subtotal() >= FREE_SHIPPING_AT ? 0 : SHIPPING_FEE; }
   function total() { return subtotal() + shipping(); }
